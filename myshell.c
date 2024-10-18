@@ -73,8 +73,12 @@ int main(int argc, char *argv[]) {
       parseCommand(cmdLine, &command);
       command.argv[command.argc] = NULL;
 
-     // check for shortcuts and build new commands if necessary
-      char *name = command.name;
+      // check for shortcuts and build new commands if necessary
+      const char *name = command.name;
+      // copy file
+      if (strcmp(name, "C") == 0) {
+         command.name = "cp";
+      }
 
       /* Create a child process to execute the command */
       runCommand(&command);
