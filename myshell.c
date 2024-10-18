@@ -59,6 +59,7 @@ int parseCommand(char *, struct command_t *);
 void printPrompt();
 void readCommand(char *);
 void runCommand(struct command_t *);
+void printManual();
 
 int main(int argc, char *argv[]) {
    char cmdLine[MAX_LINE_LEN];
@@ -84,6 +85,11 @@ int main(int argc, char *argv[]) {
       // echo comment
       else if (strcmp(name, "E") == 0) {
          command.name = "echo";
+      }
+      // help manual
+      else if (strcmp(name, "H") == 0) {
+         printManual();
+         command.name = '\0';
       }
       // modified ls command
       else if (strcmp(name, "L") == 0) {
@@ -198,4 +204,25 @@ void runCommand(struct command_t *command) {
    }
    /* Wait for the child to terminate */
    wait(NULL);
+}
+
+// print help manual for user
+void printManual() {
+   printf(
+      "myshell - basic linux shell with some additional shortcuts\n\n"
+      "BASIC FUNCTIONALITY\n"
+      "This shell can run the normal linux commands. For a list of commands, type \"help\" into the shell.\n"
+      "This shell has additional shortcuts on top of the basic functionality.\n"
+      "SHORTCUTS\n"
+      "C file1 file2 - Copy file1 to file2. Creates or overwrites file2. file1 is untouched.\n"
+      "D file - Delete the file.\n"
+      "E comment - Echo. Display comment on screen.\n"
+      "H - Help. Display user manual. What you're viewing right now.\n"
+      "L - List. Modified version of ls. Prints working directory and lists contents in long form.\n"
+      "M file - Make. Open or create a text file with nano editor.\n"
+      "P file - Print file contents on screen with the more command.\n"
+      "Q - Quit and terminate shell.\n"
+      "W - Wipe and clear the screen.\n"
+      "X program - Executes the program. Return to shell after exiting program.\n"
+   );
 }
