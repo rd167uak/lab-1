@@ -61,12 +61,11 @@ void readCommand(char *);
 void runCommand(struct command_t *);
 
 int main(int argc, char *argv[]) {
-   int pid;
-   int status;
+   int running = 1;
    char cmdLine[MAX_LINE_LEN];
    struct command_t command;
 
-   while (1) {
+   while (running) {
       printPrompt();
       /* Read the command line and parse it */
       readCommand(cmdLine);
@@ -90,6 +89,10 @@ int main(int argc, char *argv[]) {
       // make file with nano editor
       else if (strcmp(name, "M") == 0) {
          command.name = "nano";
+      }
+      // print file with more
+      else if (strcmp(name, "P") == 0) {
+         command.name = "more";
       }
 
       /* Create a child process to execute the command */
