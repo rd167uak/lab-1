@@ -87,6 +87,10 @@ int main(int argc, char *argv[]) {
       else if (strcmp(name, "E") == 0) {
          command.name = "echo";
       }
+      // make file with nano editor
+      else if (strcmp(name, "M") == 0) {
+         command.name = "nano";
+      }
 
       /* Create a child process to execute the command */
       runCommand(&command);
