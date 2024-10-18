@@ -94,8 +94,12 @@ int main(int argc, char *argv[]) {
          command.name = "more";
       }
       // exit shell
-      else if(strcmp(name, "Q") == 0) {
+      else if (strcmp(name, "Q") == 0) {
          break;
+      }
+      // clear screen
+      else if (strcmp(name, "W") == 0) {
+         command.name = "clear";
       }
 
       /* Create a child process to execute the command */
