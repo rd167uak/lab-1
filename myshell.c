@@ -101,9 +101,15 @@ int main(int argc, char *argv[]) {
       else if (strcmp(name, "W") == 0) {
          command.name = "clear";
       }
+      // execute program
+      else if (strcmp(name, "X") == 0) {
+         // replace X with program name
+         command.name = command.argv[1];
+         // remove program name from argv
+         command.argv[1] = '\0';
+      }
 
       /* Create a child process to execute the command */
-
       runCommand(&command);
    }
 
@@ -175,12 +181,11 @@ void readCommand(char *buffer) {
 // run command on child process
 void runCommand(struct command_t *command) {
    int pid;
-   int status;
    /* Create a child process to execute the command */
    if ((pid = fork()) == 0) {
       /* Child executing command */
       execvp(command->name, command->argv);
    }
    /* Wait for the child to terminate */
-   wait(&status); /* EDIT THIS LINE */
+   wait(NULL);
 }
