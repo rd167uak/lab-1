@@ -85,6 +85,16 @@ int main(int argc, char *argv[]) {
       else if (strcmp(name, "E") == 0) {
          command.name = "echo";
       }
+      // modified ls command
+      else if (strcmp(name, "L") == 0) {
+         // print working directory
+         char cwd[1024];
+         getcwd(cwd, 1024);
+         printf("\n%s\n", cwd);
+         // use ls -l command
+         command.name = "ls";
+         command.argv[1] = "-l";
+      }
       // make file with nano editor
       else if (strcmp(name, "M") == 0) {
          command.name = "nano";
@@ -162,8 +172,8 @@ void printPrompt() {
    struct passwd *p = getpwuid(getuid());
    printf("%s:", p->pw_name);
    // print current directory
-   char cwd[100];
-   getcwd(cwd, 100);
+   char cwd[1024];
+   getcwd(cwd, 1024);
    printf("%s $ ", cwd);
 }
 
