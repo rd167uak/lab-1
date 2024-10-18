@@ -83,6 +83,10 @@ int main(int argc, char *argv[]) {
       else if (strcmp(name, "D") == 0) {
          command.name = "rm";
       }
+      // echo comment
+      else if (strcmp(name, "E") == 0) {
+         command.name = "echo";
+      }
 
       /* Create a child process to execute the command */
       runCommand(&command);
