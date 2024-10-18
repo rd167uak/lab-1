@@ -79,6 +79,10 @@ int main(int argc, char *argv[]) {
       if (strcmp(name, "C") == 0) {
          command.name = "cp";
       }
+      // delete file
+      else if (strcmp(name, "D") == 0) {
+         command.name = "rm";
+      }
 
       /* Create a child process to execute the command */
       runCommand(&command);
