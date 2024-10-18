@@ -61,11 +61,10 @@ void readCommand(char *);
 void runCommand(struct command_t *);
 
 int main(int argc, char *argv[]) {
-   int running = 1;
    char cmdLine[MAX_LINE_LEN];
    struct command_t command;
 
-   while (running) {
+   while (1) {
       printPrompt();
       /* Read the command line and parse it */
       readCommand(cmdLine);
@@ -94,8 +93,13 @@ int main(int argc, char *argv[]) {
       else if (strcmp(name, "P") == 0) {
          command.name = "more";
       }
+      // exit shell
+      else if(strcmp(name, "Q") == 0) {
+         break;
+      }
 
       /* Create a child process to execute the command */
+
       runCommand(&command);
    }
 
