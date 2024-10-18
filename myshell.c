@@ -58,6 +58,7 @@ struct command_t {
 int parseCommand(char *, struct command_t *);
 void printPrompt();
 void readCommand(char *);
+void runCommand(struct command_t *);
 
 int main(int argc, char *argv[]) {
    int pid;
@@ -76,12 +77,7 @@ int main(int argc, char *argv[]) {
       char *name = command.name;
 
       /* Create a child process to execute the command */
-      if ((pid = fork()) == 0) {
-         /* Child executing command */
-         execvp(command.name, command.argv);
-      }
-      /* Wait for the child to terminate */
-      wait(&status); /* EDIT THIS LINE */
+      runCommand(&command);
    }
 
    /* Shell termination */
@@ -148,3 +144,16 @@ void readCommand(char *buffer) {
 }
 
 /* End printPrompt and readCommand */
+
+// run command on child process
+void runCommand(struct command_t *command) {
+   int pid;
+   int status;
+   /* Create a child process to execute the command */
+   if ((pid = fork()) == 0) {
+      /* Child executing command */
+      execvp(command->name, command->argv);
+   }
+   /* Wait for the child to terminate */
+   wait(&status); /* EDIT THIS LINE */
+}
