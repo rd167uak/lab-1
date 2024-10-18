@@ -41,6 +41,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <pwd.h>
 
 #define MAX_ARGS		64
 #define MAX_ARG_LEN		16
@@ -71,11 +72,8 @@ int main(int argc, char *argv[]) {
       parseCommand(cmdLine, &command);
       command.argv[command.argc] = NULL;
 
-	  /*
-	     TODO: if the command is one of the shortcuts you're testing for
-		 either execute it directly or build a new command structure to
-		 execute next
-	  */
+     // check for shortcuts and build new commands if necessary
+      char *name = command.name;
 
       /* Create a child process to execute the command */
       if ((pid = fork()) == 0) {
@@ -131,8 +129,13 @@ void printPrompt() {
    /* Build the prompt string to have the machine name,
     * current directory, or other desired information
     */
-   const char* promptString = "Please enter command: \n";
-   printf("%s ", promptString);
+   // print current username
+   struct passwd *p = getpwuid(getuid());
+   printf("%s:", p->pw_name);
+   // print current directory
+   char cwd[100];
+   getcwd(cwd, 100);
+   printf("%s $ ", cwd);
 }
 
 void readCommand(char *buffer) {
